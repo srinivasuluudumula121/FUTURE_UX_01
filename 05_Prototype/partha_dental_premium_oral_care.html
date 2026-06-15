@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Partha Dental | Premium Oral Care</title>
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/history@5/umd/history.development.js"></script>
+    <script src="https://unpkg.com/react-router@6.3.0/umd/react-router.development.js"></script>
+    <script src="https://unpkg.com/react-router-dom@6.3.0/umd/react-router-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#ead6cc",
+                      "primary": "#e57a1f",
+                      "on-tertiary-fixed-variant": "#294f2d",
+                      "on-secondary": "#ffffff",
+                      "error": "#ba1a1a",
+                      "primary-fixed": "#ffdcc6",
+                      "surface-variant": "#f2dfd4",
+                      "tertiary-fixed-dim": "#a7d1a5",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#2f1406",
+                      "on-error-container": "#93000a",
+                      "surface-container-highest": "#f2dfd4",
+                      "error-container": "#ffdad6",
+                      "inverse-surface": "#392e27",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed": "#c2eec0",
+                      "on-surface-variant": "#564337",
+                      "on-background": "#231913",
+                      "secondary": "#7c5543",
+                      "on-tertiary-container": "#113718",
+                      "primary-container": "#e57a1f",
+                      "on-primary-container": "#4e2300",
+                      "on-secondary-container": "#795240",
+                      "on-secondary-fixed-variant": "#623e2d",
+                      "surface-container": "#feeadf",
+                      "secondary-container": "#fec9b1",
+                      "inverse-on-surface": "#ffede4",
+                      "outline": "#897365",
+                      "surface": "#fff8f5",
+                      "on-primary-fixed-variant": "#723600",
+                      "on-primary-fixed": "#311400",
+                      "surface-bright": "#fff8f5",
+                      "primary-fixed-dim": "#ffb786",
+                      "surface-tint": "#964900",
+                      "on-primary": "#ffffff",
+                      "secondary-fixed": "#ffdbcc",
+                      "secondary-fixed-dim": "#efbba4",
+                      "tertiary": "#416743",
+                      "surface-container-high": "#f8e4da",
+                      "on-tertiary": "#ffffff",
+                      "on-tertiary-fixed": "#002107",
+                      "inverse-primary": "#ffb786",
+                      "on-surface": "#231913",
+                      "outline-variant": "#ddc1b1",
+                      "surface-container-low": "#fff1ea",
+                      "tertiary-container": "#78a178",
+                      "background": "#fff8f5"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "hero-padding-y": "80px",
+                      "gutter": "24px",
+                      "margin-mobile": "20px",
+                      "section-gap": "80px",
+                      "base": "8px"
+              },
+              "fontFamily": {
+                      "epilogue": ["Epilogue", "sans-serif"],
+                      "jakarta": ["Plus Jakarta Sans", "sans-serif"],
+                      "dm-serif": ["DM Serif Display", "serif"]
+              }
+            },
+          },
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .font-dm-serif { font-family: 'DM Serif Display', serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        .stepper-line::before {
+            content: '';
+            position: absolute;
+            left: 7.5px;
+            top: 24px;
+            bottom: 0;
+            width: 1px;
+            background: #ddc1b1;
+        }
+        .stepper-item:last-child .stepper-line::before {
+            display: none;
+        }
+        .glass-header {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .booking-card {
+            box-shadow: 0px 12px 32px rgba(74, 42, 26, 0.05);
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #e57a1f !important;
+            box-shadow: 0 0 0 1px #e57a1f !important;
+        }
+        .treatment-card {
+            min-width: 280px;
+            scroll-snap-align: start;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { createRoot } = ReactDOM;
+        const { MemoryRouter, Routes, Route, Link, useNavigate, useLocation } = ReactRouterDOM;
+
+        // --- Common Components ---
+
+        const Header = () => {
+            const navigate = useNavigate();
+            return (
+                <header className="fixed top-0 w-full z-50 bg-surface/80 dark:bg-surface-dim/80 backdrop-blur-md shadow-[0px_12px_32px_rgba(74,42,26,0.05)] flex items-center justify-between px-margin-mobile h-[72px]">
+                    <div className="flex items-center gap-4 cursor-pointer" onClick={() => navigate('/')}>
+                        <span className="material-symbols-outlined text-primary">menu</span>
+                        <span className="font-epilogue text-2xl font-bold text-primary dark:text-primary-fixed-dim tracking-tight">Partha Dental</span>
+                    </div>
+                    <span className="material-symbols-outlined text-primary cursor-pointer">account_circle</span>
+                </header>
+            );
+        };
+
+        const Footer = () => (
+            <footer className="bg-secondary dark:bg-on-background w-full flex flex-col items-center py-10 px-margin-mobile space-y-6 mb-20">
+                <span className="font-epilogue text-2xl font-bold text-surface-container-lowest">Partha Dental</span>
+                <div className="flex gap-8">
+                    <Link to="/" className="text-surface-variant/80 hover:text-white transition-colors text-sm">Services</Link>
+                    <Link to="/booking" className="text-surface-variant/80 hover:text-white transition-colors text-sm">Clinics</Link>
+                    <Link to="/booking" className="text-surface-variant/80 hover:text-white transition-colors text-sm">Contact</Link>
+                </div>
+                <p className="text-sm text-on-secondary dark:text-surface-variant opacity-70 text-center">© 2024 Partha Dental Clinic. Premium Oral Care.</p>
+            </footer>
+        );
+
+        const BottomNav = () => {
+            const navigate = useNavigate();
+            const location = useLocation();
+
+            return (
+                <nav className="fixed bottom-0 w-full z-50 bg-surface dark:bg-surface-dim border-t border-outline-variant/30 shadow-[0px_-8px_24px_rgba(74,42,26,0.04)] h-24 px-margin-mobile pb-safe flex items-center justify-between gap-4">
+                    <div className="flex-1 flex justify-around">
+                        <a href="tel:1234567890" className="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+                            <span className="material-symbols-outlined">call</span>
+                            <span className="text-[10px] mt-1 font-bold">Call</span>
+                        </a>
+                        <button className="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+                            <span className="material-symbols-outlined">chat</span>
+                            <span className="text-[10px] mt-1 font-bold">WhatsApp</span>
+                        </button>
+                    </div>
+                    <button 
+                        onClick={() => navigate('/booking')}
+                        className={`flex-[2] h-[52px] ${location.pathname === '/booking' ? 'bg-primary' : 'bg-primary-container'} text-white rounded-full font-bold flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg shadow-primary/20`}
+                    >
+                        <span className="material-symbols-outlined">calendar_month</span>
+                        Book Now
+                    </button>
+                </nav>
+            );
+        };
+
+        // --- Screen 1: Home (Specialized Landing - ID: dd1e058a2f6e490f8c3d55535ee57cc4) ---
+
+        const HomePage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="pt-[72px] pb-32">
+                    <section className="px-margin-mobile pt-8 space-y-8">
+                        <div className="space-y-4">
+                            <h1 className="font-dm-serif text-[40px] leading-[1.1] text-on-surface">Experience Excellence in Dental Care</h1>
+                            <p className="text-on-surface-variant text-[16px] leading-relaxed max-w-[90%]">
+                                Advanced clinical precision meets empathetic patient care. Transforming smiles across India with world-class technology.
+                            </p>
+                            <div className="flex gap-3">
+                                <button onClick={() => navigate('/booking')} className="bg-primary text-white font-semibold py-4 px-8 rounded-full shadow-lg active:scale-95 transition-all">Book Appointment</button>
+                            </div>
+                        </div>
+                        <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
+                            <img alt="Dentist" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9urKPi5t81MMDDY2gnUYmKB09_8QwciSymXNIbFb_ShTuU8qwStcC97myS8b2Yr5QpZZ5TBlfCawb-_ZEsVtGuGAhgUsUb6_LrL80Bs_ymk5ld3nYF6sPezTj-mLBefVgtBqYfVSL5fjSkY1npa3G5Nj2jEb-XPiu2qGDYHNYlGpOP4DrdY3KR4TK7GYQQhl8wXOe7ay66dtcqjYZPTI132xHTJ7TtGJU8fHT_KFNWgRJJwrfNsWhY4jcNdHtiRj5xQg2z1u0I-k"/>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+                            <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
+                                        <span className="material-symbols-outlined text-white">verified_user</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-white font-bold text-lg">ISO Certified</p>
+                                        <p className="text-white/80 text-sm">Global standards of hygiene</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="px-margin-mobile mt-[80px]">
+                        <div className="grid grid-cols-2 gap-4">
+                            {[
+                                { val: "15L+", label: "Patients" },
+                                { val: "120+", label: "Clinics" },
+                                { val: "300+", label: "Doctors" },
+                                { val: "4.9", label: "Rating", star: true }
+                            ].map((item, idx) => (
+                                <div key={idx} className="bg-surface-container-low p-6 rounded-3xl border border-outline-variant/30 text-center">
+                                    <h3 className="font-epilogue text-[28px] font-bold text-primary flex items-center justify-center gap-1">
+                                        {item.val}
+                                        {item.star && <span className="material-symbols-outlined text-primary text-[24px]" style={{fontVariationSettings: "'FILL' 1"}}>star</span>}
+                                    </h3>
+                                    <p className="text-on-surface-variant text-sm font-medium uppercase tracking-wider">{item.label}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-[80px]">
+                        <div className="px-margin-mobile mb-6 flex justify-between items-end">
+                            <h2 className="font-dm-serif text-[32px] text-on-surface leading-tight">Specialized<br/>Treatments</h2>
+                            <button className="text-primary font-semibold flex items-center gap-1 pb-1">View All <span className="material-symbols-outlined text-[18px]">arrow_forward</span></button>
+                        </div>
+                        <div className="flex overflow-x-auto hide-scrollbar gap-4 px-margin-mobile scroll-smooth">
+                            {[
+                                { title: "Dental Implants", icon: "medical_services", desc: "Restore your natural smile with titanium precision and permanent aesthetics.", link: "/implants" },
+                                { title: "Invisalign", icon: "dentistry", desc: "Clear, comfortable aligners to straighten your teeth without the metal wires.", link: "/booking" },
+                                { title: "Root Canal", icon: "health_and_safety", desc: "Painless microscopic endodontics to save your natural teeth effectively.", link: "/booking" },
+                                { title: "Smile Makeover", icon: "mood", desc: "Cosmetic artistry combined with dental science for a radiant transformation.", link: "/booking" }
+                            ].map((card, idx) => (
+                                <div key={idx} className="treatment-card bg-white rounded-3xl p-6 shadow-sm border border-surface-container">
+                                    <div className="w-14 h-14 bg-surface-container flex items-center justify-center rounded-2xl mb-6">
+                                        <span className="material-symbols-outlined text-primary text-[32px]">{card.icon}</span>
+                                    </div>
+                                    <h3 className="font-epilogue text-[20px] font-bold text-on-surface mb-2">{card.title}</h3>
+                                    <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">{card.desc}</p>
+                                    <button onClick={() => navigate(card.link)} className="w-full py-3 px-4 rounded-full border border-outline-variant text-on-surface font-semibold text-sm hover:bg-surface transition-colors">Learn More</button>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-[80px] px-margin-mobile">
+                        <div className="bg-primary text-white p-8 rounded-[32px] relative overflow-hidden">
+                            <div className="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full"></div>
+                            <h2 className="font-dm-serif text-[28px] text-white mb-6">Find Your Clinic</h2>
+                            <p className="text-white/80 mb-8 max-w-[80%]">Discover the nearest Partha Dental excellence center in your neighborhood.</p>
+                            <div className="space-y-4">
+                                <div className="relative">
+                                    <input className="w-full bg-white/20 border-white/30 rounded-2xl py-4 px-6 text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent transition-all outline-none" placeholder="Enter City or Area" type="text"/>
+                                    <button className="absolute right-3 top-3 w-10 h-10 bg-white rounded-xl text-primary flex items-center justify-center">
+                                        <span className="material-symbols-outlined">location_searching</span>
+                                    </button>
+                                </div>
+                                <button className="w-full bg-white text-primary font-bold py-4 rounded-2xl shadow-xl active:scale-[0.98] transition-transform">Search Clinics</button>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        // --- Screen 2: Implants (ID: 711880962caa4ba7aff9a2c6e40217fd) ---
+
+        const ImplantsPage = () => {
+            const navigate = useNavigate();
+            return (
+                <div className="pt-[72px] pb-24">
+                    <section className="relative px-margin-mobile pt-10 overflow-hidden">
+                        <div className="mb-8">
+                            <h1 className="font-dm-serif text-[44px] leading-[1.1] text-on-background mb-4">Precision Dental Implants.</h1>
+                            <p className="text-on-surface-variant max-w-[90%]">Restore your natural smile with the gold standard of tooth replacement. Permanent, aesthetic, and life-changing.</p>
+                        </div>
+                        <div className="relative w-full aspect-[4/5] rounded-[32px] overflow-hidden shadow-lg">
+                            <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2VjvW1vETNvtdzsZPrNuWwHmR14QH3cjPXWHd78bodJqeD26DEkcfpPFVKBqPO7V8Jb2tihTWWUvOwrP0jH_adFl7pNE3r0FGlipu-omTafU2whYYo9qnV65ik242V2mS7e3tkQuVJqt_ZtSH1B-7IF8t21VimaS6WPKgeZhWjfbMAlb8foc3svxwgr3WvvICkadMWKQQa9BAIxLVIp7aM2omAggxg2UGLo6q3-JCL--npeplRmMjjDbpPuRofGCaqOW5dx_geJ0"/>
+                            <div className="absolute top-6 right-6 flex flex-col gap-3">
+                                <div className="bg-surface/90 backdrop-blur px-4 py-3 rounded-2xl shadow-sm border border-outline-variant/30 flex items-center gap-3">
+                                    <div className="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-white">
+                                        <span className="material-symbols-outlined text-[20px]">verified</span>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] uppercase tracking-wider font-bold text-on-surface-variant">Success Rate</p>
+                                        <p className="font-dm-serif text-lg leading-none">99.2%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section className="mt-section-gap px-margin-mobile">
+                        <h2 className="font-dm-serif text-3xl mb-8">Why Choose Implants?</h2>
+                        <div className="grid grid-cols-2 gap-4">
+                            {[
+                                { title: "Jaw Bone Health", icon: "shield", desc: "Prevents bone loss and facial collapse." },
+                                { title: "Eat Anything", icon: "restaurant", desc: "Full biting force restored instantly." },
+                                { title: "Natural Look", icon: "sentiment_very_satisfied", desc: "Seamlessly blends with natural teeth." },
+                                { title: "Lifetime Solution", icon: "all_inclusive", desc: "Designed to last several decades." }
+                            ].map((item, idx) => (
+                                <div key={idx} className="bg-surface-container-low p-6 rounded-[28px] border border-outline-variant/20">
+                                    <span className="material-symbols-outlined text-primary mb-4 block">{item.icon}</span>
+                                    <h3 className="font-dm-serif text-lg leading-tight mb-2">{item.title}</h3>
+                                    <p className="text-xs text-on-surface-variant leading-relaxed">{item.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-section-gap px-margin-mobile">
+                        <h2 className="font-dm-serif text-3xl mb-10 text-center">Your Journey to a Perfect Smile</h2>
+                        <div className="space-y-0">
+                            {[
+                                { step: "01. Consultation", desc: "3D CBCT scans and digital mapping of your jaw structure to ensure precise planning." },
+                                { step: "02. Placement", desc: "Minimally invasive placement of the titanium post using computer-guided technology." },
+                                { step: "03. Healing", desc: "A period of osseointegration where the implant fuses naturally with your jaw bone." },
+                                { step: "04. Final Results", desc: "Attachment of your custom-crafted zirconia crown, matching your smile perfectly." }
+                            ].map((s, idx, arr) => (
+                                <div key={idx} className={`stepper-item relative pl-10 pb-12 ${idx !== arr.length - 1 ? 'stepper-line' : ''}`}>
+                                    <div className={`absolute left-0 top-0 w-4 h-4 rounded-full ${idx === 0 ? 'bg-primary ring-4 ring-primary/20' : 'bg-primary/40'} z-10`}></div>
+                                    <div>
+                                        <h4 className={`font-dm-serif text-xl mb-1 ${idx === 0 ? '' : 'text-on-surface/80'}`}>{s.step}</h4>
+                                        <p className="text-sm text-on-surface-variant">{s.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="mt-section-gap px-margin-mobile mb-10">
+                        <h2 className="font-dm-serif text-3xl mb-8">Common Questions</h2>
+                        <div className="space-y-4">
+                            <details className="group bg-surface-container rounded-2xl p-6 transition-all duration-300">
+                                <summary className="flex justify-between items-center list-none cursor-pointer">
+                                    <span className="font-semibold text-on-surface">Is the procedure painful?</span>
+                                    <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                                </summary>
+                                <p className="mt-4 text-sm text-on-surface-variant">Most patients report less discomfort than a standard extraction. We use advanced local anesthesia and sedation options.</p>
+                            </details>
+                            <details className="group bg-surface-container rounded-2xl p-6 transition-all duration-300">
+                                <summary className="flex justify-between items-center list-none cursor-pointer">
+                                    <span className="font-semibold text-on-surface">How long do they last?</span>
+                                    <span className="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                                </summary>
+                                <p className="mt-4 text-sm text-on-surface-variant">With proper care and hygiene, dental implants are intended to be a permanent, lifelong solution.</p>
+                            </details>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        // --- Screen 3: Booking (ID: 93592734089e4d2fa764d3c46fa9beb4) ---
+
+        const BookingPage = () => {
+            const [status, setStatus] = useState('idle');
+
+            const handleConfirm = () => {
+                setStatus('loading');
+                setTimeout(() => setStatus('confirmed'), 2000);
+            };
+
+            return (
+                <div className="pt-[72px] pb-32">
+                    <section className="px-margin-mobile pt-10 pb-6 text-center">
+                        <h2 className="font-dm-serif text-[42px] leading-tight text-on-background mb-4">Book Your Consultation</h2>
+                        <p className="text-on-surface-variant max-w-[320px] mx-auto">Take the first step towards a perfect smile with India's largest dental clinic network.</p>
+                    </section>
+
+                    <section className="px-margin-mobile mb-10">
+                        <div className="bg-surface-container-lowest booking-card rounded-[20px] p-6 space-y-6">
+                            <div className="space-y-2">
+                                <label className="text-on-surface font-semibold text-xs block px-1">Select Service</label>
+                                <div className="relative">
+                                    <select className="w-full h-[56px] px-5 bg-background border border-outline-variant/30 rounded-[18px] appearance-none text-sm focus:ring-0">
+                                        <option>Root Canal Treatment</option>
+                                        <option>Dental Implants</option>
+                                        <option>Teeth Whitening</option>
+                                        <option>Invisalign & Braces</option>
+                                        <option>General Checkup</option>
+                                    </select>
+                                    <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">expand_more</span>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="space-y-2">
+                                    <label className="text-on-surface font-semibold text-xs block px-1">Full Name</label>
+                                    <input className="w-full h-[56px] px-5 bg-background border border-outline-variant/30 rounded-[18px] text-sm focus:ring-0 placeholder:text-on-surface-variant/50" placeholder="John Doe" type="text"/>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-on-surface font-semibold text-xs block px-1">Phone Number</label>
+                                    <input className="w-full h-[56px] px-5 bg-background border border-outline-variant/30 rounded-[18px] text-sm focus:ring-0 placeholder:text-on-surface-variant/50" placeholder="+91 98765 43210" type="tel"/>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 gap-4">
+                                <div className="space-y-2">
+                                    <label className="text-on-surface font-semibold text-xs block px-1">Preferred Date</label>
+                                    <input className="w-full h-[56px] px-5 bg-background border border-outline-variant/30 rounded-[18px] text-sm focus:ring-0" type="date"/>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-on-surface font-semibold text-xs block px-1">Nearest Clinic</label>
+                                    <div className="relative">
+                                        <select className="w-full h-[56px] px-5 bg-background border border-outline-variant/30 rounded-[18px] appearance-none text-sm focus:ring-0">
+                                            <option>Hyderabad - Jubilee Hills</option>
+                                            <option>Bangalore - Indiranagar</option>
+                                            <option>Chennai - Adyar</option>
+                                            <option>Pune - Koregaon Park</option>
+                                        </select>
+                                        <span className="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant">location_on</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button 
+                                onClick={handleConfirm}
+                                className={`w-full h-14 ${status === 'confirmed' ? 'bg-tertiary' : 'bg-primary-container'} text-white font-bold rounded-full shadow-lg active:scale-95 transition-transform duration-200 flex items-center justify-center gap-2`}
+                            >
+                                {status === 'idle' && 'Confirm Appointment'}
+                                {status === 'loading' && (
+                                    <span className="flex items-center gap-2">
+                                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 
+                                        Scheduling...
+                                    </span>
+                                )}
+                                {status === 'confirmed' && (
+                                    <span className="flex items-center gap-2">
+                                        <span className="material-symbols-outlined">check_circle</span> 
+                                        Confirmed!
+                                    </span>
+                                )}
+                            </button>
+                        </div>
+                    </section>
+
+                    <section className="px-margin-mobile mb-12">
+                        <h3 className="font-epilogue text-[24px] font-bold text-on-background mb-4 px-1">Need Help?</h3>
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="bg-surface-container p-5 rounded-[20px] flex flex-col gap-3">
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-primary">
+                                    <span className="material-symbols-outlined">call</span>
+                                </div>
+                                <div>
+                                    <span className="font-bold text-sm block">Call Us</span>
+                                    <span className="text-[10px] text-on-surface-variant">Immediate Help</span>
+                                </div>
+                            </div>
+                            <div className="bg-[#E7F3EF] p-5 rounded-[20px] flex flex-col gap-3">
+                                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-tertiary">
+                                    <span className="material-symbols-outlined" style={{fontVariationSettings: "'FILL' 1"}}>chat</span>
+                                </div>
+                                <div>
+                                    <span className="font-bold text-sm block">WhatsApp</span>
+                                    <span className="text-[10px] text-on-surface-variant">Chat with Us</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            );
+        };
+
+        const App = () => {
+            const { pathname } = useLocation();
+
+            // Scroll to top on route change
+            useEffect(() => {
+                window.scrollTo(0, 0);
+            }, [pathname]);
+
+            return (
+                <div className="min-h-screen">
+                    <Header />
+                    <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/implants" element={<ImplantsPage />} />
+                        <Route path="/booking" element={<BookingPage />} />
+                    </Routes>
+                    <Footer />
+                    <BottomNav />
+                </div>
+            );
+        };
+
+        const rootElement = document.getElementById("root");
+        const root = createRoot(rootElement);
+        root.render(
+            <MemoryRouter>
+                <App />
+            </MemoryRouter>
+        );
+    </script>
+</body>
+</html>
