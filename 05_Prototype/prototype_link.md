@@ -2,7 +2,6 @@
 
 ## Live Prototype
 
-https://stitch.withgoogle.com/projects/9314898517850914399
 
 ---
 
